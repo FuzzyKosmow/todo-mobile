@@ -10,6 +10,12 @@ export const AddTodo = (todo: string): any => {
   };
 };
 
+export const UpdateTodo = (id: string, todo: string): any => {
+  return {
+    type: ADD_TODO,
+    payload: {id, todo},
+  };
+};
 export const RemoveTodo = (id: string): any => {
   return {
     type: REMOVE_TODO,
