@@ -1,7 +1,7 @@
 # React Native Todo App
 
 ![React Native](https://img.shields.io/badge/React%20Native-v0.64-blue.svg)
-![License](https://img.shields.io/github/license/{username}/{repo-name})
+![License](https://img.shields.io/github/license/FuzzyKosmow/todo-mobile)
 
 A simple mobile todo application built using React Native.
 
@@ -9,6 +9,8 @@ A simple mobile todo application built using React Native.
 
 - Add new tasks
 - Delete tasks.
+- Edit tasks.
+- Mark tasks as completed.
 
 ## Installation
 
