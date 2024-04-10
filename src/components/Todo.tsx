@@ -1,7 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {AddTodo, RemoveTodo, UpdateTodo} from '../redux/actions/todoActions';
+import {
+  AddTodo,
+  RemoveTodo,
+  ToggleTodo,
+  UpdateTodo,
+} from '../redux/actions/todoActions';
 import {styles} from './todoStyle';
 import {
   Text,
@@ -83,11 +88,13 @@ const Todo: React.FC = () => {
                 },
               ]}>
               <View style={styles.todoList}>
-                <TouchableOpacity>
-                  <Text style={styles.todoItemText}>{item.text}</Text>
+                <TouchableOpacity
+                  onPress={() => dispatch(ToggleTodo(item.id.toString()))}>
+                  <Text style={styles.todoItemText}>
+                    {item.completed ? '✅' : '⬜'} {item.text}
+                  </Text>
                 </TouchableOpacity>
               </View>
-
               <TouchableOpacity
                 style={styles.removeTodo}
                 onPress={() => removeTodo(item.id.toString())}>
