@@ -26,5 +26,3 @@ Install the dependencies:
 cd  todo-mobile
 npm install
 ```
-
-License
