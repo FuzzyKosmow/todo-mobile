@@ -10,10 +10,11 @@ interface TodoStyles {
   todoView: ViewStyle;
   removeTodo: ViewStyle;
   todoText: TextStyle;
+  removeText: TextStyle;
+  editText: TextStyle;
   todoItemText: TextStyle;
-  editTodo: ViewStyle; // Added editTodo type
-  editInput: ViewStyle; // Added editInput type
-  editButton: ViewStyle; // Added editButton type
+  editTodoButton: ViewStyle; // Added editTodo type
+  editInput: TextStyle; // Added editInput type
 }
 
 const styles: TodoStyles = StyleSheet.create({
@@ -30,21 +31,31 @@ const styles: TodoStyles = StyleSheet.create({
   todoList: {
     borderWidth: 1,
     borderRadius: 10,
-    width: width * 0.8,
+    width: width * 0.5,
     height: 40,
     justifyContent: 'center',
     padding: 10,
   },
-  todoView: {flex: 1, flexDirection: 'row', margin: 10, padding: 5},
+  todoView: {flex: 1, flexDirection: 'row', margin: 10, padding: 10},
 
   removeTodo: {
-    backgroundColor: 'red',
+    backgroundColor: 'hsl(1, 60%, 70%)',
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
     margin: 4,
-    width: 30,
-    height: 30,
+    width: width * 0.1,
+    height: 'auto',
+  },
+  editTodoButton: {
+    backgroundColor: 'hsl(120, 60%, 70%)',
+    color: 'hsl(120, 60%, 30%)',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 4,
+    width: width * 0.1,
+    height: 'auto',
   },
 
   todoText: {
@@ -54,32 +65,19 @@ const styles: TodoStyles = StyleSheet.create({
     fontSize: 18,
     color: 'blue',
   },
-
+  removeText: {
+    color: 'white',
+  },
+  editText: {
+    color: 'hsl(120, 60%, 30%)',
+  },
   todoItemText: {
     fontSize: 16,
     color: 'black',
   },
 
-  editTodo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-
   editInput: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    flex: 1,
-  },
-
-  editButton: {
-    backgroundColor: 'green',
-    borderRadius: 5,
-    alignItems: 'center',
-    paddingHorizontal: 5,
+    color: 'black',
   },
 });
 

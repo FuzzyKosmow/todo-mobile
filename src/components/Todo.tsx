@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {useState, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {AddTodo, RemoveTodo} from '../redux/actions/todoActions';
+import {AddTodo, RemoveTodo, UpdateTodo} from '../redux/actions/todoActions';
 import {styles} from './todoStyle';
 import {
   Text,
@@ -22,7 +22,8 @@ const Todo: React.FC = () => {
     (state: any) => state.todoReducer.todos || [],
   );
   const animation = useRef(new Animated.Value(0)).current;
-
+  const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
+  const [newText, setNewText] = useState<string>('');
   const addTodo = () => {
     dispatch(AddTodo(todoValue));
     setTodoValue('');
@@ -45,37 +46,73 @@ const Todo: React.FC = () => {
   const renderTodoList = () => {
     return (
       <FlatList
-        keyExtractor={(item: ITodo) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
         data={todos}
-        renderItem={({item}: {item: ITodo}) => (
-          <Animated.View
-            style={[
-              styles.todoView,
-              {
-                transform: [
-                  {
-                    translateX: animation.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, 200], // Change this value for different animation effect
-                    }),
-                  },
-                ],
-              },
-            ]}>
-            <View style={styles.todoList}>
-              <Text style={styles.todoItemText}>{item.text}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.removeTodo}
-              onPress={() => removeTodo(item.id.toString())}>
-              <Text> X </Text>
-            </TouchableOpacity>
-          </Animated.View>
-        )}
+        renderItem={({item}) =>
+          editingTodoId !== null && editingTodoId === item.id.toString() ? (
+            <>
+              <View style={styles.todoList}>
+                <TextInput
+                  style={{
+                    color: 'black',
+                  }}
+                  onChangeText={text => setNewText(text)}
+                  value={newText}
+                />
+              </View>
+              <TouchableOpacity>
+                <Button
+                  title="Save"
+                  onPress={() => editTodo(item.id.toString(), newText)}
+                />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <Animated.View
+              style={[
+                styles.todoView,
+                {
+                  transform: [
+                    {
+                      translateX: animation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 200],
+                      }),
+                    },
+                  ],
+                },
+              ]}>
+              <View style={styles.todoList}>
+                <TouchableOpacity>
+                  <Text style={styles.todoItemText}>{item.text}</Text>
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity
+                style={styles.removeTodo}
+                onPress={() => removeTodo(item.id.toString())}>
+                <Text style={{color: styles.removeText.color}}>X</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.editTodoButton}
+                onPress={() => {
+                  setEditingTodoId(item.id.toString());
+                  setNewText(item.text);
+                }}>
+                <Text style={{color: styles.editText.color}}>Edit</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          )
+        }
       />
     );
   };
 
+  const editTodo = (itemId: string, newText: string) => {
+    dispatch(UpdateTodo(itemId, newText));
+    setEditingTodoId(null);
+    setNewText('');
+  };
   return (
     <View style={styles.main}>
       <TextInput
