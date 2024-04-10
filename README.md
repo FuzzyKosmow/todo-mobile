@@ -23,6 +23,8 @@ git clone https://github.com/FuzzyKosmow/todo-mobile
 Install the dependencies:
 
 ```bash
-cd {todo-mobile}
+cd  todo-mobile
 npm install
 ```
+
+License
