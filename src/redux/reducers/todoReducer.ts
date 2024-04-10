@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
 import {Action, ITodo} from '../../../types';
-import {ADD_TODO, REMOVE_TODO, UPDATE_TODO} from '../actions/actionTypes';
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  UPDATE_TODO,
+  TOGGLE_TODO,
+} from '../actions/actionTypes';
 
 let curId = 0;
 interface TodoState {
@@ -35,6 +40,15 @@ const todoReducer = (state = INITIAL_STATE, action: Action): TodoState => {
             : todo,
         ),
       };
+    case TOGGLE_TODO:
+      return {
+        todos: state.todos.map(todo =>
+          todo.id.toString() === action.payload
+            ? {...todo, completed: !todo.completed}
+            : todo,
+        ),
+      };
+
     default:
       return state;
   }
